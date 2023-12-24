@@ -1,6 +1,6 @@
 # ml-kem-stuff
 
-A toy implementation of ML-KEM, based on the current [FIPS 203 draft](https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.203.ipd.pdf).
+A toy implementation of ML-KEM, aka Kyber, based on the current [FIPS 203 draft](https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.203.ipd.pdf).
 
 This implementation is INCOMPLETE and **INSECURE**, the latter being explicitly out of scope. The current status is "it looks like it works" - it's able to derive a shared secret, but I have no idea if it's doing it correctly. I'll do some more rigorous testing later.
 
