@@ -304,39 +304,40 @@ def mlkem_decaps(c: bytes, dk: bytes) -> bytes:
 	cdash = kpke_encrypt(ek_pke, mdash, rdash)
 	if cdash != c:
 		# I suppose this branch ought to be constant-time, but that's already out the window with this impl
-		print("did not match") # XXX: what does implicit reject mean? I suppose it guarantees it fails in a not-attacker-controlled way?
+		#print("did not match") # XXX: what does implicit reject mean? I suppose it guarantees it fails in a not-attacker-controlled way?
 		return kbar
 	return kdash
 
 
-a = list(range(256))
-b = list(range(1024, 1024+256))
+if __name__ == "__main__":
+	a = list(range(256))
+	b = list(range(1024, 1024+256))
 
-ntt_res = ntt_inv(ntt_add(ntt(a), ntt(b)))
-poly_res = poly256_add(a, b)
+	ntt_res = ntt_inv(ntt_add(ntt(a), ntt(b)))
+	poly_res = poly256_add(a, b)
 
-assert(ntt_res == poly_res)
+	assert(ntt_res == poly_res)
 
-ntt_prod = ntt_inv(ntt_mul(ntt(a), ntt(b)))
-poly_prod = poly256_slow_mul(a, b)
+	ntt_prod = ntt_inv(ntt_mul(ntt(a), ntt(b)))
+	poly_prod = poly256_slow_mul(a, b)
 
-assert(ntt_prod == poly_prod)
-
-
-ek_pke, dk_pke = kpke_keygen(b"SEED"*8)
-
-msg = b"This is a demonstration message."
-ct = kpke_encrypt(ek_pke, msg, b"RAND"*8)
-pt = kpke_decrypt(dk_pke, ct)
-print(pt)
-assert(pt == msg)
+	assert(ntt_prod == poly_prod)
 
 
-ek, dk = mlkem_keygen()
-k1, c = mlkem_encaps(ek)
-print("encapsulated:", k1.hex())
+	ek_pke, dk_pke = kpke_keygen(b"SEED"*8)
 
-k2 = mlkem_decaps(c, dk)
-print("decapsulated:", k2.hex())
+	msg = b"This is a demonstration message."
+	ct = kpke_encrypt(ek_pke, msg, b"RAND"*8)
+	pt = kpke_decrypt(dk_pke, ct)
+	print(pt)
+	assert(pt == msg)
 
-assert(k1 == k2)
+
+	ek, dk = mlkem_keygen()
+	k1, c = mlkem_encaps(ek)
+	print("encapsulated:", k1.hex())
+
+	k2 = mlkem_decaps(c, dk)
+	print("decapsulated:", k2.hex())
+
+	assert(k1 == k2)
