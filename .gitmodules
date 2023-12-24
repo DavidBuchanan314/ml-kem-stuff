@@ -1,0 +1,3 @@
+[submodule "KAT"]
+	path = KAT
+	url = https://github.com/post-quantum-cryptography/KAT
