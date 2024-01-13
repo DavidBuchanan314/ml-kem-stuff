@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "assert": "^2.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@typescript-eslint/eslint-plugin": "^6.18.1",
+    "@typescript-eslint/parser": "^6.18.1",
+    "eslint": "^8.56.0",
+    "eslint-config-typescript": "^3.0.0",
+    "typescript": "^5.3.3"
+  },
+  "scripts": {
+    "build": "npm run lint && tsc",
+    "lint": "eslint --ext .ts .",
+    "run": "node mlkem.js"
+  }
+}
