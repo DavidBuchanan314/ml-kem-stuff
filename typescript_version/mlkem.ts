@@ -25,13 +25,7 @@ const MLKEM_PARAMS_1024: MLKemParams = { k: 4, eta1: 2, eta2: 2, du: 11, dv: 5 }
 // doesn't matter if this is slow, it gets rolled into LUTs anyway
 function bitRev7(n: number): number {
 	assert((n >= 0) && (n < (1<<7)));
-
-	// 8-bit rev bithack
-	n = ((n & 0b10101010) >> 1) | ((n & 0b01010101) << 1);
-	n = ((n & 0b11001100) >> 2) | ((n & 0b00110011) << 2);
-	n = ((n & 0b11110000) >> 4) | ((n & 0b00001111) << 4);
-
-	return n >> 1; // shift off 0th bit (giving us a 7-bit rev overall)
+	return parseInt(n.toString(2).split("").reverse().join("").padEnd(7, "0"), 2);
 }
 
 
